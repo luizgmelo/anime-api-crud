@@ -8,10 +8,18 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 public class AnimeController {
     @Autowired
     AnimeRepository animeRepository;
+
+    @GetMapping("/anime")
+    public ResponseEntity getAllAnimes() {
+        List<AnimeModel> listAnimes = animeRepository.findAll();
+        return ResponseEntity.ok(listAnimes);
+    }
 
     @PostMapping("/anime")
     public ResponseEntity saveAnime(@RequestBody @Valid AnimeRecordDTO animeRecordDTO) {
