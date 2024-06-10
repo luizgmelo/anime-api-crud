@@ -2,7 +2,6 @@ package com.example.anime_api.controllers;
 
 import com.example.anime_api.dtos.AnimeRecordDTO;
 import com.example.anime_api.models.AnimeModel;
-import com.example.anime_api.repositories.AnimeRepository;
 import com.example.anime_api.services.AnimeService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,7 +9,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 

@@ -4,7 +4,6 @@ import com.example.anime_api.dtos.AnimeRecordDTO;
 import com.example.anime_api.models.AnimeModel;
 import com.example.anime_api.repositories.AnimeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
