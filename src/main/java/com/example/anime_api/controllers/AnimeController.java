@@ -45,4 +45,13 @@ public class AnimeController {
         return ResponseEntity.notFound().build();
     }
 
+    @DeleteMapping("/anime/{id}")
+    public ResponseEntity deleteAnime(@PathVariable(value="id") UUID id) {
+        Optional<AnimeModel> optionalAnime = animeRepository.findById(id);
+        if (optionalAnime.isPresent()) {
+            animeRepository.deleteById(id);
+            return ResponseEntity.ok("Anime deleted successfully");
+        }
+        return ResponseEntity.notFound().build();
+    }
 }
