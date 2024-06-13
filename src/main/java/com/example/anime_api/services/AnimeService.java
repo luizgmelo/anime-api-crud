@@ -45,11 +45,12 @@ public class AnimeService {
         return animeRepository.save(anime);
     }
 
-    public void deleteById(UUID id) {
+    public String deleteById(UUID id) {
         Optional<AnimeModel> animeO = animeRepository.findById(id);
         if (animeO.isEmpty()) {
            throw new AnimeNotFoundException();
         }
         animeRepository.deleteById(id);
+        return "Anime deleted successfully!";
     }
 }

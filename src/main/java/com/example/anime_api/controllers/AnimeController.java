@@ -23,6 +23,11 @@ public class AnimeController {
         return ResponseEntity.status(HttpStatus.OK).body(animeService.findAll());
     }
 
+    @GetMapping("/anime/{id}")
+    public ResponseEntity getOneAnime(@PathVariable(value = "id") UUID id) {
+        return ResponseEntity.status(HttpStatus.OK).body(animeService.findById(id));
+    }
+
     @PostMapping("/anime")
     public ResponseEntity saveAnime(@RequestBody @Valid AnimeRecordDTO animeRecordDTO) {
         return ResponseEntity.status(HttpStatus.CREATED).body(animeService.save(animeRecordDTO));
@@ -36,7 +41,6 @@ public class AnimeController {
 
     @DeleteMapping("/anime/{id}")
     public ResponseEntity deleteAnime(@PathVariable(value="id") UUID id) {
-        animeService.deleteById(id);
-        return ResponseEntity.status(HttpStatus.OK).body("Anime deleted successfully");
+        return ResponseEntity.status(HttpStatus.OK).body(animeService.deleteById(id));
     }
 }
