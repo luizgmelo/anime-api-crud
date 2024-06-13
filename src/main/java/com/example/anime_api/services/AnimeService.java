@@ -1,9 +1,12 @@
 package com.example.anime_api.services;
 
 import com.example.anime_api.dtos.AnimeRecordDTO;
+import com.example.anime_api.exceptions.AnimeNotFoundException;
 import com.example.anime_api.models.AnimeModel;
 import com.example.anime_api.repositories.AnimeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -30,13 +33,23 @@ public class AnimeService {
         return animeRepository.save(newAnime);
     }
 
-    public AnimeModel update(AnimeModel anime, AnimeRecordDTO animeUpdate) {
+    public AnimeModel update(UUID id, AnimeRecordDTO animeUpdate) {
+        var animeO = animeRepository.findById(id);
+        if (animeO.isEmpty()) {
+            throw new AnimeNotFoundException();
+        }
+        AnimeModel anime = animeO.get();
         anime.setTitle(animeUpdate.title());
         anime.setDescription(animeUpdate.description());
+
         return animeRepository.save(anime);
     }
 
     public void deleteById(UUID id) {
+        Optional<AnimeModel> animeO = animeRepository.findById(id);
+        if (animeO.isEmpty()) {
+           throw new AnimeNotFoundException();
+        }
         animeRepository.deleteById(id);
     }
 }

@@ -1,6 +1,7 @@
 package com.example.anime_api.controllers;
 
 import com.example.anime_api.dtos.AnimeRecordDTO;
+import com.example.anime_api.exceptions.AnimeNotFoundException;
 import com.example.anime_api.models.AnimeModel;
 import com.example.anime_api.services.AnimeService;
 import jakarta.validation.Valid;
@@ -30,19 +31,11 @@ public class AnimeController {
     @PutMapping("/anime/{id}")
     public ResponseEntity updateAnime(@PathVariable(value="id") UUID id,
                                       @RequestBody @Valid AnimeRecordDTO animeRecordDTO) {
-        Optional<AnimeModel> animeO = animeService.findById(id);
-        if (animeO.isEmpty()) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Anime not found");
-        }
-        return ResponseEntity.status(HttpStatus.OK).body(animeService.update(animeO.get(), animeRecordDTO));
+        return ResponseEntity.status(HttpStatus.OK).body(animeService.update(id, animeRecordDTO));
     }
 
     @DeleteMapping("/anime/{id}")
     public ResponseEntity deleteAnime(@PathVariable(value="id") UUID id) {
-        Optional<AnimeModel> animeO = animeService.findById(id);
-        if (animeO.isEmpty()) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Anime not found");
-        }
         animeService.deleteById(id);
         return ResponseEntity.status(HttpStatus.OK).body("Anime deleted successfully");
     }
